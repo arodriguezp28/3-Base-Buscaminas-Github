@@ -25,6 +25,8 @@ public class ControlJuego {
 		
 		//Inicializamos una nueva partida
 		inicializarPartida();
+
+		depurarTablero();
 	}
 	
 	
@@ -36,8 +38,28 @@ public class ControlJuego {
 	public void inicializarPartida(){
 
 		//TODO: Repartir minas e inicializar puntaci�n. Si hubiese un tablero anterior, lo pongo todo a cero para inicializarlo.
+		//Poner  todas las posiciones a 0
+		for (int i = 0; i < tablero.length; i++) {
+			for (int j = 0; j < tablero.length; j++) {
+				tablero[i][j] = 0;
+			}
+		}
+		//Poner la puntuacion a 0
+		puntuacion = 0;
+		//Colocar las minas: (while).
+		Random aleatorio = new Random();
+		int minas = MINAS_INICIALES;
+		int ale1=0, ale2=0;
 		
-		
+		//minas tiene el valor de Minas_Iniciales, mientras que no llegue a 1, va comprobando si en la posicion marcada no hay mina introduce la mina y va restando las minas.
+		while(minas > 0){
+			ale1 = aleatorio.nextInt(LADO_TABLERO);
+			ale2 = aleatorio.nextInt(LADO_TABLERO);
+			if(tablero[ale1][ale2] == 0){
+				tablero[ale1][ale2] = MINA;
+				minas--;
+			}
+		}
 		
 		//Al final del m�todo hay que guardar el n�mero de minas para las casillas que no son mina:
 		for (int i = 0; i < tablero.length; i++) {
@@ -46,7 +68,7 @@ public class ControlJuego {
 					tablero[i][j] = calculoMinasAdjuntas(i,j);
 				}
 			}
-		}
+		} 
 	}
 	
 	/**Cálculo de las minas adjuntas: 
@@ -58,7 +80,28 @@ public class ControlJuego {
 	 * @return : El número de minas que hay alrededor de la casilla [i][j]
 	 **/
 	private int calculoMinasAdjuntas(int i, int j){
-		return 0;
+		int contMinas = 0;
+		int iPrincipio = Math.max(0, i-1);
+		if(iPrincipio < 0){
+			iPrincipio = 0;
+		}
+		int iFinal = Math.min(LADO_TABLERO-1, i+1);
+		int jPrincipio = Math.max(0, i-1);
+		if(jPrincipio < 0){
+			jPrincipio = 0;
+		}
+		int jFinal = Math.min(LADO_TABLERO-1, i+1);
+
+		for (int vert = iPrincipio; vert <= iFinal; vert++) {
+			for (int hor = jPrincipio; hor <= jFinal; hor++) {
+				if(tablero[vert][hor] == MINA){
+					contMinas++;
+				}
+			}
+		}
+
+
+		return contMinas;
 	}
 	
 	/**
