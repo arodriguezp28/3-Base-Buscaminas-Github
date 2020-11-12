@@ -15,7 +15,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Ventana principal del Buscaminas
- * @author {Rellenar por el alumno}
+ * @author Alexandro Rodriguez Parron
  */
 public class VentanaPrincipal {
 
@@ -142,7 +142,18 @@ public class VentanaPrincipal {
 	 * Método que inicializa todos los lísteners que necesita inicialmente el programa
 	 */
 	public void inicializarListeners(){
+
 		//TODO
+		for (int i = 0; i < botonesJuego.length; i++) {
+			for (int j = 0; j < botonesJuego.length; j++) {
+				botonesJuego[i][j].addActionListener((e)->{
+					
+				});
+			}
+			
+		}
+		
+		//Dar listener a los botones para que se abran los botones
 	}
 	
 	
@@ -160,6 +171,20 @@ public class VentanaPrincipal {
 	 */
 	public void mostrarNumMinasAlrededor(int i , int j) {
 		//TODO
+		//Seleccionar el panel[i][j] correspondiente.
+		//Eliminar todos sus componentes: //Buscarlo en internet
+		panelesJuego[i][j].remove(botonesJuego[i][j]);
+
+		//Añadimos un JLabel centrado
+		JLabel numMinasAlrededor = new JLabel();
+		
+		numMinasAlrededor.setHorizontalAlignment(SwingConstants.CENTER);
+		numMinasAlrededor.setText(""+juego.getMinasAlrededor(i, j));
+		numMinasAlrededor.setForeground(correspondenciaColores[juego.getMinasAlrededor(i, j)]);
+
+		panelesJuego[i][j].add(numMinasAlrededor);
+		//Ojo que el numero de minas se sacar de controlJuego
+		refrescarPantalla();
 	}
 	
 	
@@ -177,6 +202,7 @@ public class VentanaPrincipal {
 	 */
 	public void actualizarPuntuacion() {
 		//TODO
+		pantallaPuntuacion.setText(""+juego.getPuntuacion());
 	}
 	
 	/**

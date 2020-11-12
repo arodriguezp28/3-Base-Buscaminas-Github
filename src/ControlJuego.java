@@ -82,15 +82,11 @@ public class ControlJuego {
 	private int calculoMinasAdjuntas(int i, int j){
 		int contMinas = 0;
 		int iPrincipio = Math.max(0, i-1);
-		if(iPrincipio < 0){
-			iPrincipio = 0;
-		}
+		
 		int iFinal = Math.min(LADO_TABLERO-1, i+1);
-		int jPrincipio = Math.max(0, i-1);
-		if(jPrincipio < 0){
-			jPrincipio = 0;
-		}
-		int jFinal = Math.min(LADO_TABLERO-1, i+1);
+		int jPrincipio = Math.max(0, j-1);
+		
+		int jFinal = Math.min(LADO_TABLERO-1, j+1);
 
 		for (int vert = iPrincipio; vert <= iFinal; vert++) {
 			for (int hor = jPrincipio; hor <= jFinal; hor++) {
@@ -105,14 +101,24 @@ public class ControlJuego {
 	}
 	
 	/**
-	 * Método que nos permite 
+	 * Método que nos permite abrir una casilla. Devuelve verdadero y suma un punto si no hay mina
 	 * @pre : La casilla nunca debe haber sido abierta antes, no es controlado por el ControlJuego. Por lo tanto siempre sumaremos puntos
 	 * @param i: posición verticalmente de la casilla a abrir
 	 * @param j: posición horizontalmente de la casilla a abrir
 	 * @return : Verdadero si no ha explotado una mina. Falso en caso contrario.
 	 */
 	public boolean abrirCasilla(int i, int j){
-		return false;
+		boolean noExplota;
+
+		if(tablero[i][j] == MINA){
+			noExplota = false;
+		}
+		else{
+			puntuacion++;
+			noExplota = true;
+		}
+
+		return noExplota;
 	}
 	
 	
@@ -122,7 +128,17 @@ public class ControlJuego {
 	 * @return Devuelve verdadero si se han abierto todas las celdas que no son minas.
 	 **/
 	public boolean esFinJuego(){
-		return false;
+		boolean fin = false;
+		for (int i = 0; i < LADO_TABLERO; i++) {
+			for (int j = 0; j < LADO_TABLERO; j++) {
+				if(abrirCasilla(i, j)){
+					fin = true;
+				}
+			}
+		}
+
+
+		return fin;
 	}
 	
 	
@@ -148,7 +164,7 @@ public class ControlJuego {
 	 * @return Un entero que representa el número de minas alrededor de la celda
 	 */
 	public int getMinasAlrededor(int i, int j) {
-		return 0;
+		return tablero[i][j];
 	}
 
 	/**
@@ -156,7 +172,7 @@ public class ControlJuego {
 	 * @return Un entero con la puntuación actual
 	 */
 	public int getPuntuacion() {
-		return 0;
+		return puntuacion;
 	}
 	
 }
