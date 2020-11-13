@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.OptionPaneUI;
 
 /**
  * Ventana principal del Buscaminas
@@ -192,7 +193,18 @@ public class VentanaPrincipal {
 	 * @post : Todos los botones se desactivan excepto el de volver a iniciar el juego.
 	 */
 	public void mostrarFinJuego(boolean porExplosion) {
-		//TODO
+		if(porExplosion){
+			JOptionPane.showMessageDialog(ventana, "GAME OVER!!!");
+		}
+		else{
+			JOptionPane.showMessageDialog(ventana, "Has ganado XD");
+		}
+		
+		for (int i = 0; i < botonesJuego.length; i++) {
+			for (int j = 0; j < botonesJuego.length; j++) {
+				botonesJuego[i][j].setEnabled(false);
+			}
+		}
 	}
 
 	/**
