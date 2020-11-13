@@ -142,13 +142,11 @@ public class VentanaPrincipal {
 	 * Método que inicializa todos los lísteners que necesita inicialmente el programa
 	 */
 	public void inicializarListeners(){
-
+		
 		//TODO
 		for (int i = 0; i < botonesJuego.length; i++) {
 			for (int j = 0; j < botonesJuego.length; j++) {
-				botonesJuego[i][j].addActionListener((e)->{
-					
-				});
+				botonesJuego[i][j].addActionListener(new ActionBoton(this, i, j));
 			}
 			
 		}
