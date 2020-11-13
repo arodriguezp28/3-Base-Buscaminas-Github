@@ -151,8 +151,23 @@ public class VentanaPrincipal {
 			}
 			
 		}
+
+		botonEmpezar.addActionListener((e)->{
+			refrescarPantalla();
+			 for (int i = 0; i < panelesJuego.length; i++) {
+				for (int j = 0; j < panelesJuego.length; j++) {
+					botonesJuego[i][j].setEnabled(true);
+					botonesJuego[i][j] = new JButton("-");
+					panelesJuego[i][j].add(botonesJuego[i][j]);
+				}
+			} 
+
+			juego.depurarTablero();
+			juego.inicializarPartida();
+		});
 		
-		//Dar listener a los botones para que se abran los botones
+		
+
 	}
 	
 	
