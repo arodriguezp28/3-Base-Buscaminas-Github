@@ -154,16 +154,19 @@ public class VentanaPrincipal {
 
 		botonEmpezar.addActionListener((e)->{
 			refrescarPantalla();
-			 for (int i = 0; i < panelesJuego.length; i++) {
+			for (int i = 0; i < panelesJuego.length; i++) {
 				for (int j = 0; j < panelesJuego.length; j++) {
-					botonesJuego[i][j].setEnabled(true);
-					botonesJuego[i][j] = new JButton("-");
-					panelesJuego[i][j].add(botonesJuego[i][j]);
+					panelesJuego[i][j].removeAll();
 				}
-			} 
-
-			juego.depurarTablero();
+			}
+			for (int i = 0; i < panelesJuego.length; i++) {
+				for (int j = 0; j < panelesJuego.length; j++) {
+					panelesJuego[i][j].add(botonesJuego[i][j]);
+					botonesJuego[i][j].setEnabled(true);
+				}
+			}
 			juego.inicializarPartida();
+			actualizarPuntuacion();
 		});
 		
 		
@@ -212,7 +215,7 @@ public class VentanaPrincipal {
 			JOptionPane.showMessageDialog(ventana, "GAME OVER!!!");
 		}
 		else{
-			JOptionPane.showMessageDialog(ventana, "Has ganado XD");
+			JOptionPane.showMessageDialog(ventana, "Has ganado!!!");
 		}
 		
 		for (int i = 0; i < botonesJuego.length; i++) {

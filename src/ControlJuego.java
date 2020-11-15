@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -7,7 +6,7 @@ import java.util.Random;
  * Si hay una mina en una posición guarda el número -1
  * Si no hay una mina, se guarda cuántas minas hay alrededor.
  * Almacena la puntuación de la partida
- * @author jesusredondogarcia
+ * @author Alexandro Rodríguez Parrón
  *
  */
 public class ControlJuego {
@@ -25,8 +24,6 @@ public class ControlJuego {
 		
 		//Inicializamos una nueva partida
 		inicializarPartida();
-
-		depurarTablero();
 	}
 	
 	
