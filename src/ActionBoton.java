@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
  * De alguna manera tendrá que poder acceder a la ventana principal.
  * Se puede lograr pasando en el constructor la referencia a la ventana.
  * Recuerda que desde la ventana, se puede acceder a la variable de tipo ControlJuego
- * @author jesusredondogarcia
+ * @author Alexandro Rodríguez Parrón
  **
  */
 public class ActionBoton implements ActionListener{
@@ -15,11 +15,8 @@ public class ActionBoton implements ActionListener{
 	private int i;
 	private int j;
 
-	
-
-
+	//Constructor de ActionBoton
 	public ActionBoton(VentanaPrincipal ventanaPrincipal, int i, int j) {
-		//TODO
 		this.ventanaPrincipal = ventanaPrincipal;
 		this.i = i;
 		this.j = j;
@@ -28,21 +25,22 @@ public class ActionBoton implements ActionListener{
 
 	
 	/**
-	 *Acción que ocurrirá cuando pulsamos uno de los botones.
+	 * Al pulsar en botones:
+	 * Si al abrir la casilla no es una mina se indica el numero de minas que hay alrededor,
+	 * y si no es una mina y la puntuación ha llegado a 80 habrás ganado
+	 * Si al abrir la casilla es una mina, habrás perdido
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if(ventanaPrincipal.juego.abrirCasilla(i, j)){
 			ventanaPrincipal.mostrarNumMinasAlrededor(i, j);
-			ventanaPrincipal.actualizarPuntuacion();
-		}
-		else{
-			if(ventanaPrincipal.juego.getPuntuacion() != 80){
-				ventanaPrincipal.mostrarFinJuego(true);
-			}
-			else{
+			if(ventanaPrincipal.juego.getPuntuacion() == 80){
 				ventanaPrincipal.mostrarFinJuego(false);
 			}
+		}
+		else{
+			ventanaPrincipal.mostrarFinJuego(true);
 		}
 		ventanaPrincipal.refrescarPantalla();
 	}

@@ -2,8 +2,6 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,11 +10,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.plaf.OptionPaneUI;
 
 /**
  * Ventana principal del Buscaminas
- * @author Alexandro Rodriguez Parron
+ * @author Alexandro Rodríguez Parrón
  */
 public class VentanaPrincipal {
 
@@ -144,7 +141,7 @@ public class VentanaPrincipal {
 	 */
 	public void inicializarListeners(){
 		
-		//TODO
+		//Util para los botones de las minas.
 		for (int i = 0; i < botonesJuego.length; i++) {
 			for (int j = 0; j < botonesJuego.length; j++) {
 				botonesJuego[i][j].addActionListener(new ActionBoton(this, i, j));
@@ -152,6 +149,7 @@ public class VentanaPrincipal {
 			
 		}
 
+		//Util para el boton que empieza partida.
 		botonEmpezar.addActionListener((e)->{
 			refrescarPantalla();
 			for (int i = 0; i < panelesJuego.length; i++) {
@@ -187,20 +185,52 @@ public class VentanaPrincipal {
 	 * @param j: posición horizontal de la celda.
 	 */
 	public void mostrarNumMinasAlrededor(int i , int j) {
-		//TODO
+		JLabel numMinasAlrededor;
 		//Seleccionar el panel[i][j] correspondiente.
-		//Eliminar todos sus componentes: //Buscarlo en internet
-		panelesJuego[i][j].remove(botonesJuego[i][j]);
+		//Eliminar todos sus componentes
 
-		//Añadimos un JLabel centrado
-		JLabel numMinasAlrededor = new JLabel();
-		
+		panelesJuego[i][j].removeAll();
+
+		//Añadimos un JLabel centrado, con el numero de minas alrededor y con el color correspondiente.
+		numMinasAlrededor = new JLabel();
 		numMinasAlrededor.setHorizontalAlignment(SwingConstants.CENTER);
 		numMinasAlrededor.setText(""+juego.getMinasAlrededor(i, j));
 		numMinasAlrededor.setForeground(correspondenciaColores[juego.getMinasAlrededor(i, j)]);
 
-		panelesJuego[i][j].add(numMinasAlrededor);
-		//Ojo que el numero de minas se sacar de controlJuego
+		/**
+		 * Metodo implementado.
+		 * Al pulsar en un botón donde no hayan minas alrededor, esos botones de alrededor se descubren
+		 */
+		if(numMinasAlrededor.getText().equals(""+0)){
+			int iPrincipio = Math.max(0, i-1);
+			
+			int iFinal = Math.min(10-1, i+1);
+			int jPrincipio = Math.max(0, j-1);
+			
+			int jFinal = Math.min(10-1, j+1);
+
+			
+			for (int vert = iPrincipio; vert <= iFinal; vert++) {
+				for (int hor = jPrincipio; hor <= jFinal; hor++) {
+
+					numMinasAlrededor = new JLabel();
+					panelesJuego[vert][hor].removeAll();//removeAll por que, si hay dos botones proximos que sean 0, el panel se duplica
+
+					numMinasAlrededor.setHorizontalAlignment(SwingConstants.CENTER);
+					numMinasAlrededor.setText(""+juego.getMinasAlrededor(vert, hor));
+					numMinasAlrededor.setForeground(correspondenciaColores[juego.getMinasAlrededor(vert, hor)]);
+
+					panelesJuego[vert][hor].add(numMinasAlrededor);
+
+					actualizarPuntuacion();
+				}
+			}
+		}
+		else{
+			panelesJuego[i][j].add(numMinasAlrededor);
+			actualizarPuntuacion();
+		}
+		
 		refrescarPantalla();
 	}
 	
@@ -215,7 +245,7 @@ public class VentanaPrincipal {
 			JOptionPane.showMessageDialog(ventana, "GAME OVER!!!");
 		}
 		else{
-			JOptionPane.showMessageDialog(ventana, "Has ganado!!!");
+			JOptionPane.showMessageDialog(ventana, "HAS GANADO!!!");
 		}
 		
 		for (int i = 0; i < botonesJuego.length; i++) {
@@ -229,7 +259,6 @@ public class VentanaPrincipal {
 	 * Método que muestra la puntuación por pantalla.
 	 */
 	public void actualizarPuntuacion() {
-		//TODO
 		pantallaPuntuacion.setText(""+juego.getPuntuacion());
 	}
 	
