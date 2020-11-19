@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 /**
  * Ventana principal del Buscaminas
  * @author Alexandro Rodríguez Parrón
+ * @version 1.0
  */
 public class VentanaPrincipal {
 
@@ -164,7 +165,6 @@ public class VentanaPrincipal {
 				}
 			}
 			juego.inicializarPartida();
-			actualizarPuntuacion();
 		});
 		
 		
@@ -186,6 +186,7 @@ public class VentanaPrincipal {
 	 */
 	public void mostrarNumMinasAlrededor(int i , int j) {
 		JLabel numMinasAlrededor;
+		int cont = 0;
 		//Seleccionar el panel[i][j] correspondiente.
 		//Eliminar todos sus componentes
 
@@ -202,6 +203,8 @@ public class VentanaPrincipal {
 		 * Al pulsar en un botón donde no hayan minas alrededor, esos botones de alrededor se descubren
 		 */
 		if(numMinasAlrededor.getText().equals(""+0)){
+			
+			
 			int iPrincipio = Math.max(0, i-1);
 			
 			int iFinal = Math.min(10-1, i+1);
@@ -222,15 +225,19 @@ public class VentanaPrincipal {
 
 					panelesJuego[vert][hor].add(numMinasAlrededor);
 
-					actualizarPuntuacion();
+					cont++;
+					
 				}
 			}
+			
 		}
 		else{
+			cont++;
 			panelesJuego[i][j].add(numMinasAlrededor);
-			actualizarPuntuacion();
 		}
 		
+		juego.setPuntuacion(cont);
+		actualizarPuntuacion();
 		refrescarPantalla();
 	}
 	
@@ -247,12 +254,13 @@ public class VentanaPrincipal {
 		else{
 			JOptionPane.showMessageDialog(ventana, "HAS GANADO!!!");
 		}
-		
+		juego.setPuntuacion(0);
 		for (int i = 0; i < botonesJuego.length; i++) {
 			for (int j = 0; j < botonesJuego.length; j++) {
 				botonesJuego[i][j].setEnabled(false);
 			}
 		}
+		actualizarPuntuacion();
 	}
 
 	/**

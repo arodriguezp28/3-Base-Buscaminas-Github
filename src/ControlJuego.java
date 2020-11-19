@@ -112,7 +112,6 @@ public class ControlJuego {
 			noExplota = false;
 		}
 		else{
-			puntuacion++;
 			noExplota = true;
 		}
 
@@ -173,6 +172,19 @@ public class ControlJuego {
 	 */
 	public int getPuntuacion() {
 		return puntuacion;
+	}
+
+	/**
+	 * Método que controlará la puntuación, se irá sumando la puntuación, si cae en una mina, no dará puntos
+	 * Asi controlamos que si cae en una mina se restablezca la puntuación a 0.
+	 * @param puntuacion
+	 */
+	public void setPuntuacion(int puntuacion){
+		if(puntuacion == 0){
+			this.puntuacion = 0;
+		}else{
+			this.puntuacion += puntuacion;
+		}
 	}
 	
 }
