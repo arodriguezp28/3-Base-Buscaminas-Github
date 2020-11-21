@@ -186,7 +186,7 @@ public class VentanaPrincipal {
 	 */
 	public void mostrarNumMinasAlrededor(int i , int j) {
 		JLabel numMinasAlrededor;
-		int cont = 0;
+		int cont = 0; //ira sumando los puntos dependiendo de que boton pulse
 		//Seleccionar el panel[i][j] correspondiente.
 		//Eliminar todos sus componentes
 
@@ -207,10 +207,10 @@ public class VentanaPrincipal {
 			
 			int iPrincipio = Math.max(0, i-1);
 			
-			int iFinal = Math.min(10-1, i+1);
+			int iFinal = Math.min(botonesJuego.length-1, i+1);
 			int jPrincipio = Math.max(0, j-1);
 			
-			int jFinal = Math.min(10-1, j+1);
+			int jFinal = Math.min(botonesJuego.length-1, j+1);
 
 			
 			for (int vert = iPrincipio; vert <= iFinal; vert++) {
@@ -226,7 +226,6 @@ public class VentanaPrincipal {
 					panelesJuego[vert][hor].add(numMinasAlrededor);
 
 					cont++;
-					
 				}
 			}
 			
